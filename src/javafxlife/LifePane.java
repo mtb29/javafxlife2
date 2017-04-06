@@ -26,7 +26,7 @@ import javafx.util.Duration;
  * ScrollPane. Let me know if you figure it out... Solved: Dr. Lienhard came up
  * with a solution for getting the ScrollPane working :-)
  *
- * @author John Phillips
+ * @author Matthew Brady
  */
 public class LifePane extends ScrollPane {
 
@@ -39,6 +39,7 @@ public class LifePane extends ScrollPane {
     private int xCellCount = 100;
     private int yCellCount = 100;
     private boolean showColors = false;
+    private Color selectedColor = Color.BLACK;
     private int iteration = 0;
     private final Label lbStatus;
     private final Canvas canvas;
@@ -172,7 +173,7 @@ public class LifePane extends ScrollPane {
                         Color myColor = Color.rgb(myRed, myGreen, myBlue);
                         g.setFill(myColor);
                     } else {
-                        g.setFill(Color.BLACK);
+                        g.setFill(selectedColor);
                     }
                 }
                 g.fillRect(x * CELLWIDTH, y * CELLHEIGHT, CELLFILLWIDTH, CELLFILLHEIGHT);
@@ -240,5 +241,9 @@ public class LifePane extends ScrollPane {
 
     public boolean getShowColors() {
         return this.showColors;
+    }
+
+    public void colorPicker(Color color) {
+        selectedColor = color;
     }
 }

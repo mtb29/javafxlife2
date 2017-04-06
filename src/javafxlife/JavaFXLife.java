@@ -19,13 +19,14 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
  * A JavaFX 8 program to run Conway's Game of Life.
  *
- * @author John Phillips
+ * @author Matthew Brady
  */
 public class JavaFXLife extends Application {
 
@@ -65,9 +66,10 @@ public class JavaFXLife extends Application {
         final Menu fileMenu = new Menu("File");
         final Menu speedMenu = new Menu("Speed");
         final Menu optionsMenu = new Menu("Options");
+        final Menu colorMenu = new Menu("Color Picker");
         final Menu helpMenu = new Menu("Help");
 
-        myBar.getMenus().addAll(fileMenu, speedMenu, optionsMenu, helpMenu);
+        myBar.getMenus().addAll(fileMenu, speedMenu, optionsMenu, colorMenu, helpMenu);
 
         /**
          * *********************************************************************
@@ -166,6 +168,38 @@ public class JavaFXLife extends Application {
         color.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
         color.setOnAction(e -> lifePane.setShowColors(color.isSelected()));
         optionsMenu.getItems().add(color);
+        
+        /**
+         * *********************************************************************
+         * Color Picker Menu Section
+         */
+        MenuItem colBlack = new MenuItem("Black");
+        colBlack.setOnAction(e -> lifePane.colorPicker(Color.BLACK));
+        colorMenu.getItems().add(colBlack);
+
+        MenuItem colBlue = new MenuItem("Blue");
+        colBlue.setOnAction(e -> lifePane.colorPicker(Color.BLUE));
+        colorMenu.getItems().add(colBlue);
+        
+        MenuItem colOrange = new MenuItem("Orange");
+        colOrange.setOnAction(e -> lifePane.colorPicker(Color.ORANGE));
+        colorMenu.getItems().add(colOrange);
+        
+        MenuItem colRed = new MenuItem("Red");
+        colRed.setOnAction(e -> lifePane.colorPicker(Color.RED));
+        colorMenu.getItems().add(colRed);
+        
+        MenuItem colGreen = new MenuItem("Green");
+        colGreen.setOnAction(e -> lifePane.colorPicker(Color.GREEN));
+        colorMenu.getItems().add(colGreen);
+        
+        MenuItem colPurple = new MenuItem("Purple");
+        colPurple.setOnAction(e -> lifePane.colorPicker(Color.PURPLE));
+        colorMenu.getItems().add(colPurple);
+        
+        MenuItem colPink = new MenuItem("Pink");
+        colPink.setOnAction(e -> lifePane.colorPicker(Color.PINK));
+        colorMenu.getItems().add(colPink);
 
         /**
          * *********************************************************************
@@ -179,7 +213,16 @@ public class JavaFXLife extends Application {
             readFile(new File("jp.txt"));
             lifePane.drawCells();
         });
-        helpMenu.getItems().add(jp);        
+        helpMenu.getItems().add(jp);   
+        
+        MenuItem mtb = new MenuItem("MTB");
+        mtb.setOnAction(e -> {
+            lifePane.pause();
+            lifePane.clearCells();
+            readFile(new File("mtb.txt"));
+            lifePane.drawCells();
+        });
+        helpMenu.getItems().add(mtb);
         
         MenuItem acorn = new MenuItem("Acorn");
         acorn.setOnAction(e -> {
@@ -215,7 +258,7 @@ public class JavaFXLife extends Application {
                     + "    2) a living cell with 2 or 3 neighbors continues living\n";
             Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
             alert.setTitle("About");
-            alert.setHeaderText("JavaFXLife v1.0 by John Phillips");
+            alert.setHeaderText("JavaFXLife v1.0 by Matthew Brady");
             alert.showAndWait();
         });
         helpMenu.getItems().add(about);
